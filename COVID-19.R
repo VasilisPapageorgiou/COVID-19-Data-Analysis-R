@@ -5,20 +5,18 @@ print('Our observations begins at 22/01/2020 and ends at 17/03/2020')
 
 
 # Installation of useful packages and activation of libraries
-install.packages('ggplot2')
+if (require('ggplot2')==FALSE){install.packages("ggplot2")}
 library('ggplot2')
-install.packages('tidyverse')
-library('tidyverse')
-install.packages('dplyr')
+if (require('dplyr')==FALSE){install.packages("dplyr")}
 library('dplyr')
-install.packages('readr')
+if (require('readr')==FALSE){install.packages("readr")}
 library('readr')
 
 
 ############################## Exercise 1 #####################################
 
 # Importing and printing dataset confirmed_cases_worldwide
-confirmed_cases_worldwide <- read_csv("/cloud/project/confirmed_cases_worldwide.csv")
+confirmed_cases_worldwide <- read_csv("confirmed_cases_worldwide.csv")
 View(confirmed_cases_worldwide)
 str(confirmed_cases_worldwide)
 head(confirmed_cases_worldwide, n=10)
@@ -30,7 +28,7 @@ tail(confirmed_cases_worldwide, n=10)
 # Creating a line graph to visualize the upward trend of the number of cases globally.
 
 ggplot(confirmed_cases_worldwide, aes(x=date, y=cum_cases))+
-  geom_line(aes(x=date,y=yp,col='green')) +
+  geom_line(aes(x=date,y=cum_cases,col='green')) +
   geom_line(col = 'lightblue3', size = 2) +
   ylab('Cumulative confirmed cases')
 
@@ -38,7 +36,7 @@ ggplot(confirmed_cases_worldwide, aes(x=date, y=cum_cases))+
 
 # Importing and printing dataset confirmed_cases_china_vs_world
 
-confirmed_cases_china_vs_world <- read_csv("/cloud/project/confirmed_cases_china_vs_world.csv")
+confirmed_cases_china_vs_world <- read_csv("confirmed_cases_china_vs_world.csv")
 View(confirmed_cases_china_vs_world)
 str(confirmed_cases_china_vs_world)
 
@@ -46,7 +44,7 @@ str(confirmed_cases_china_vs_world)
 # Now we create a graph for the two timeseries of cases (China and Rest of the world).
 
 plt_cum_confirmed_cases_china_vs_world <- ggplot(confirmed_cases_china_vs_world) +
-  geom_line(aes(x=date, y=cases,group=is_china, col = is_china)) +
+  geom_line(aes(x=date, y=cum_cases,group=is_china, col = is_china)) +
   ylab('Cumulative confirmed cases')
 plt_cum_confirmed_cases_china_vs_world
 
